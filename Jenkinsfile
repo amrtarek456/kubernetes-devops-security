@@ -4,7 +4,6 @@ pipeline {
   maven 'MAVEN3'
   }
 
-
   stages 
   {
       stage('Init'){
