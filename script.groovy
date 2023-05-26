@@ -56,6 +56,7 @@ def pushImage(){
           withCredentials([usernamePassword(credentialsId: 'nexus', passwordVariable: 'PSW', usernameVariable: 'USER')]){
           sh "echo ${PSW} | docker login -u ${USER} --password-stdin 40.121.81.242:8083"
           sh "docker push 40.121.81.242:8083/app:${BUILD_NUMBER}"
+          sh "docker rm 40.121.81.242:8083/app:${BUILD_NUMBER}"
     }
 }
 
