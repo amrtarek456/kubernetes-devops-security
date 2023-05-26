@@ -19,12 +19,9 @@ def checkPomVersion(){
         script{
                def new_version = readMavenPom file: './pom.xml'
                println(new_version.version)
-               sh 'git show HEAD^:./pom.xml > pom1.xml'
-               sh 'cat pom1.xml | grep <version>'
-               sh 'rmi -rf pom1.xml'
-               println(env.v)
-
-
+               sh 'git show HEAD^:./pom.xml | grep <version>'
+               /* sh 'cat pom1.xml | grep <version>'
+               sh 'rmi -rf pom1.xml' */
         }
 }
 def pushJar(){
@@ -41,7 +38,6 @@ script{
                   protocol: 'http',
                   repository: 'myapp',
                   version: "${mavenPom.version}"
-                  env.v= mavenPom.version
                 }
 }
 
