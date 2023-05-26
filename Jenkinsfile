@@ -1,56 +1,62 @@
-def codeCheckout(){
-        checkout scmGit(branches: [[name: '*/main']], 
-                        extensions: [], 
-                        userRemoteConfigs: [[url: 'https://github.com/amrtarek456/kubernetes-devops-security.git']])
+pipeline {
+    agent any
+     tools {
+  maven 'MAVEN3'
+  }
+  
 
-}
-def codeScan(){
-script{
-          withSonarQubeEnv("sonarqube") {
-          sh "mvn sonar:sonar -f ./pom.xml"
-            }
-     }
-}
-def build(){
-        sh "mvn clean package -DskipTests=true"
-        archive 'target/*.jar'
-}
-def checkPomVersion(){
-        script{
-               def new_version = readMavenPom file: './pom.xml'
-               println(new_version.version)
-               sh 'git show HEAD^:./pom.xml > check.xml'
-               def old_version = readMavenPom file: 'check.xml'
-               println(old_version.version)
-              
-        }
-}
-def pushJar(){
-script{
-                def mavenPom = readMavenPom file: './pom.xml'
-                nexusArtifactUploader artifacts: [[artifactId: 'numeric',
-                                                   classifier: '',
-                                                   file: "target/numeric-${mavenPom.version}.jar",
-                                                   type: 'jar']],
-                  credentialsId: "NEXUS_CRED",
-                  groupId: 'com.devsecops',
-                  nexusUrl: '40.121.81.242:8081/',
-                  nexusVersion: 'nexus3', 
-                  protocol: 'http',
-                  repository: 'myapp',
-                  version: "${mavenPom.version}"
+  stages 
+  {
+      stage('Init'){
+            steps{
+                script{
+                    gv_script = load "script.groovy"
                 }
-}
+            }
+       }
+     stage('Code checkout') {
+            steps {
+                script{
+                 gv_script.codeCheckout()
+                }
+             }
+       } 
+    
 
-def pushImage(){
-          echo 'Building Image ...'
-          sh "docker build -t 40.121.81.242:8083/app:${BUILD_NUMBER} ."
-          echo 'Pushing image to docker hosted rerpository on Nexus'
-          withCredentials([usernamePassword(credentialsId: 'nexus', passwordVariable: 'PSW', usernameVariable: 'USER')]){
-          sh "echo ${PSW} | docker login -u ${USER} --password-stdin 40.121.81.242:8083"
-          sh "docker push 40.121.81.242:8083/app:${BUILD_NUMBER}"
+    stage ('Build') {
+      steps 
+      {
+        script{
+                 gv_script.build()
+                }
+      }
     }
+    
+    stage('checkPomVersion'){
+      steps{
+        script{
+          gv_script.checkPomVersion()
+        }
+      }
+    }
+    
+
+    stage('Jar Push to Nexus'){
+      steps{
+        script{
+          gv_script.pushJar()
+        }
+      }
+    }
+
+    stage('Docker Build and Push to Nexus') 
+    {
+      steps {
+        script{
+          gv_script.pushImage()
+        }
+       }
+      }  
+  }
+  
 }
-
-
-return this
