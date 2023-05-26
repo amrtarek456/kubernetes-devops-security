@@ -3,6 +3,7 @@ pipeline {
      tools {
   maven 'MAVEN3'
   }
+  
 
   stages 
   {
@@ -21,7 +22,7 @@ pipeline {
              }
        } 
     
-      
+
     stage ('Build') {
       steps 
       {
@@ -30,6 +31,15 @@ pipeline {
                 }
       }
     }
+    
+    stage('checkPomVersion'){
+      steps{
+        script{
+          gv_script.checkPomVersion()
+        }
+      }
+    }
+    
 
     stage('Jar Push to Nexus'){
       steps{
