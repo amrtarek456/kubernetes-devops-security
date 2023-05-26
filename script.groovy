@@ -18,16 +18,16 @@ def build(){
 def pushJar(){
 script{
                 def mavenPom = readMavenPom file: './pom.xml'
-                nexusArtifactUploader artifacts: [[artifactId: 'MyWebApp',
+                nexusArtifactUploader artifacts: [[artifactId: 'numeric',
                                                    classifier: '',
-                                                   file: "MyWebApp/target/MyWebApp.jar",
+                                                   file: "target/numeric-0.0.1.jar",
                                                    type: 'jar']],
                   credentialsId: "NEXUS_CRED",
-                  groupId: 'com.dept.app',
+                  groupId: 'com.devsecops',
                   nexusUrl: '40.121.81.242:8081/',
                   nexusVersion: 'nexus3', 
                   protocol: 'http',
-                  repository: 'myapp',
+                  repository: 'maven-snapshots',
                   version: "${mavenPom.version}"
                 }
 }
