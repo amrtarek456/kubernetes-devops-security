@@ -15,6 +15,15 @@ def build(){
         sh "mvn clean package -DskipTests=true"
         archive 'target/*.jar'
 }
+def checkPomVersion(){
+        script{
+               def new-version = readMavenPom file: './pom.xml'
+               println(new-version)
+               println(env.v)
+
+
+        }
+}
 def pushJar(){
 script{
                 def mavenPom = readMavenPom file: './pom.xml'
@@ -29,6 +38,7 @@ script{
                   protocol: 'http',
                   repository: 'myapp',
                   version: "${mavenPom.version}"
+                  env.v= mavenPom.version
                 }
 }
 
