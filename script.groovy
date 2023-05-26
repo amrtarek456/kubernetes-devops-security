@@ -20,7 +20,7 @@ def checkPomVersion(){
                def new_version = readMavenPom file: './pom.xml'
                println(new_version.version)
                sh 'git show HEAD^:./pom.xml > check.xml'
-               sh 'cat check.xml | grep <version>'
+               sh 'awk -F "[<>]" '/version/ && $3{print $3;exit}' check.xml'
               
         }
 }
