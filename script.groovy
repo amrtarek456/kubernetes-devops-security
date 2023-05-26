@@ -19,7 +19,7 @@ def checkPomVersion(){
         script{
                def new_version = readMavenPom file: './pom.xml'
                println(new_version.version)
-               sh 'git show HEAD^:./pom.xml > pom_old.xml'
+               sh 'git show HEAD^:./pom.xml'
                println(env.v)
 
 
