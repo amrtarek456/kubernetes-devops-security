@@ -22,6 +22,7 @@ def checkPomVersion(){
                sh 'git show HEAD^:./pom.xml > check.xml'
                def old_version = readMavenPom file: 'check.xml'
                println(old_version.version)
+               sh 'sudo rm -f check.xml'
               
         }
 }
