@@ -22,7 +22,8 @@ def checkPomVersion(){
                //def new_version = readMavenPom file: './pom.xml'
                def new_version = pom.getVersion()
                println(new_version)
-               OLD_POM = sh (script: 'git show HEAD^:./pom.xml',returnStdout: true).trim()
+               OLD_POM_FILE = sh (script: 'git show HEAD^:./pom.xml',returnStdout: true).trim()
+               OLD_POM = readMavenPom file: OLD_POM_FILE
                echo "$OLD_POM"
                VERSION_IN_OLD_POM = OLD_POM.getVersion()
                echo "$VERSION_IN_OLD_POM"
