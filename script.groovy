@@ -22,10 +22,10 @@ def checkPomVersion(){
                println(pom.version)
                sh 'git show HEAD^:./pom.xml > OLD_POM.xml'
                //git show HEAD^:pom.xml HEAD -> last commit HEAD^ -> second last commit
-               def oldVersion = readMavenPom file: 'OLD_POM.xml'
-               println(oldVersion.version)
+               def oldPom = readMavenPom file: 'OLD_POM.xml'
+               println(oldPom.version)
                newVersion = pom.version
-               oldVersion = old_version.version
+               oldVersion = oldPom.version
               if(newVersion == oldVersion)
                {
                 error("Pom versions are identical you have to change the version!")
