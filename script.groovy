@@ -30,8 +30,8 @@ script{
                   repository: 'myapp',
                   version: "${mavenPom.version}"
                 }
-                 }
 }
+
 def pushImage(){
           echo 'Building Image ...'
           sh "docker build -t 40.121.81.242:8083/app:${BUILD_NUMBER} ."
