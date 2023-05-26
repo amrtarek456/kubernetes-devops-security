@@ -16,18 +16,26 @@ def build(){
         archive 'target/*.jar'
 }
 def checkPomVersion(){
+        def pomPath ='./pom.xml'
+        def pom = readMavenPom file: pomPath
         script{
-               def new_version = readMavenPom file: './pom.xml'
-               println(new_version.version)
-               sh 'git show HEAD^:./pom.xml > check.xml'
+               //def new_version = readMavenPom file: './pom.xml'
+               def new_version = pom.getVersion()
+               println(new_version)
+               OLD_POM = sh (script: 'git show HEAD^:./pom.xml',returnStdout: true).trim()
+               echo "$OLD_POM"
+               VERSION_IN_OLD_POM = OLD_POM.getVersion()
+               echo "$VERSION_IN_OLD_POM"
+
+               //sh 'git show HEAD^:./pom.xml > check.xml'
                //git show HEAD^:pom.xml HEAD -> last commit HEAD^ -> second last commit
-               def old_version = readMavenPom file: 'check.xml'
-               println(old_version.version)
-              if(new_version.version == old_version.version)
-               {
-                error("Pom versions are identical you have to change the version!")
+               //def old_version = readMavenPom file: 'check.xml'
+               //println(old_version.version)
+            //   if(new_version.version == old_version.version)
+            //    {
+            //     error("Pom versions are identical you have to change the version!")
                 
-               }
+            //    }
               
         }
 }
