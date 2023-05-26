@@ -3,11 +3,20 @@ pipeline {
      tools {
   maven 'MAVEN3'
   }
-    
+    stages{
+        stage('Init'){
+            steps{
+                script{
+                    gv_script = load "script.groovy"
+                }
+            }
+        }
     stages {
      stage('Code checkout') {
             steps {
-             checkout scmGit(branches: [[name: '*/main']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/amrtarek456/kubernetes-devops-security.git']])
+                script{
+                gv_script.codeCheckout()
+                }
     }
         }
     
