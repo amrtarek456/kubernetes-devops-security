@@ -11,7 +11,7 @@
 
 	<groupId>com.devsecops</groupId>
 	<artifactId>numeric</artifactId>
-	<version>0.0.16</version>
+	<version>0.0.17</version>
 	<name>numeric</name>
 	<description>Demo for DevSecOps</description>
 
