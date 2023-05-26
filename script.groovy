@@ -20,14 +20,14 @@ script{
                 def mavenPom = readMavenPom file: './pom.xml'
                 nexusArtifactUploader artifacts: [[artifactId: 'numeric',
                                                    classifier: '',
-                                                   file: "target/numeric-0.0.1.jar",
+                                                   file: "target/numeric-0.0.2.jar",
                                                    type: 'jar']],
                   credentialsId: "NEXUS_CRED",
                   groupId: 'com.devsecops',
                   nexusUrl: '40.121.81.242:8081/',
                   nexusVersion: 'nexus3', 
                   protocol: 'http',
-                  repository: 'maven-snapshots',
+                  repository: 'myapp',
                   version: "${mavenPom.version}"
                 }
 }
