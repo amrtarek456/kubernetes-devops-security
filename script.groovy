@@ -19,11 +19,9 @@ def checkPomVersion(){
         script{
                def new_version = readMavenPom file: './pom.xml'
                println(new_version.version)
-               //sh 'git show HEAD^:./pom.xml > check.xml'
+               sh 'git show HEAD^:./pom.xml > check.xml'
                //git show HEAD^:pom.xml HEAD^ -> last commit HEAD^^ -> second last commit
-               //def old_version = readMavenPom file: 'check.xml'
-               def path = "sh 'git show HEAD^:./pom.xml"
-               def old_version = readMavenPom model: path
+               def old_version = readMavenPom file: 'check.xml'
                println(old_version.version)
               if(new_version.version == old_version.version)
                {
