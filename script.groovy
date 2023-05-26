@@ -51,16 +51,16 @@ def checkPomVersion(){
 //                 }
 // }
 
-// def pushImage(){
-//           echo 'Building Image ...'
-//           sh "docker build -t 40.121.81.242:8083/app:${BUILD_NUMBER} ."
-//           echo 'Pushing image to docker hosted rerpository on Nexus'
-//           withCredentials([usernamePassword(credentialsId: 'nexus', passwordVariable: 'PSW', usernameVariable: 'USER')]){
-//           sh "echo ${PSW} | docker login -u ${USER} --password-stdin 40.121.81.242:8083"
-//           sh "docker push 40.121.81.242:8083/app:${BUILD_NUMBER}"
-//           sh "docker image rm 40.121.81.242:8083/app:${BUILD_NUMBER}"
-//     }
-// }
+def pushImage(){
+          echo 'Building Image ...'
+          sh "docker build -t 40.121.81.242:8083/app:${BUILD_NUMBER} ."
+          echo 'Pushing image to docker hosted rerpository on Nexus'
+          withCredentials([usernamePassword(credentialsId: 'nexus', passwordVariable: 'PSW', usernameVariable: 'USER')]){
+          sh "docker login -u ${USER} -p ${PSW} 40.121.81.242:8083"
+          sh "docker push 40.121.81.242:8083/app:${BUILD_NUMBER}"
+          sh "docker image rm 40.121.81.242:8083/app:${BUILD_NUMBER}"
+    }
+}
 
 
 return this
