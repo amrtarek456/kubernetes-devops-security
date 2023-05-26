@@ -32,7 +32,15 @@ pipeline {
       }
     }
 
-    stage('Docker Build and Push') 
+    stage('Jar Push to Nexus'){
+      steps{
+        script{
+          gv_script.pushJar()
+        }
+      }
+    }
+
+    stage('Docker Build and Push to Nexus') 
     {
       steps {
         script{
