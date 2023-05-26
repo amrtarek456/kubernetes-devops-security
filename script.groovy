@@ -18,11 +18,15 @@ def build(){
 def checkPomVersion(){
         script{
                def new_version = readMavenPom file: './pom.xml'
-               println(new_version.version)
                sh 'git show HEAD^:./pom.xml > check.xml'
                def old_version = readMavenPom file: 'check.xml'
-               println(old_version.version)
-              
+               script{
+               if(new_version == old_version)
+               {
+                println("Pom versions are identical you have to change the version!")
+                break;
+               }
+               }
         }
 }
 def pushJar(){
