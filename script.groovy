@@ -24,7 +24,7 @@ def checkPomVersion(){
                if(new_version == old_version)
                {
                 println("Pom versions are identical you have to change the version!")
-                break;
+                sh "exit 1"
                }
                
         }
