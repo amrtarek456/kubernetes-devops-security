@@ -17,8 +17,8 @@ def build(){
 }
 def checkPomVersion(){
         script{
-               def new-version = readMavenPom file: './pom.xml'
-               println(new-version)
+               def new_version = readMavenPom file: './pom.xml'
+               println(new_version)
                println(env.v)
 
 
