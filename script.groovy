@@ -25,7 +25,7 @@ def checkPomVersion(){
               if(new_version.version == old_version.version)
                {
                 error("Pom versions are identical you have to change the version!")
-                currentBuild.result = 'FAILURE'
+                
                }
               
         }
