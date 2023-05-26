@@ -31,7 +31,7 @@ pipeline {
                 }
       }
     }
-
+      
     stage('Jar Push to Nexus'){
       steps{
         script{
