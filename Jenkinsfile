@@ -3,22 +3,23 @@ pipeline {
      tools {
   maven 'MAVEN3'
   }
-    stages{
-        stage('Init'){
+  
+
+    stages {
+      stage('Init'){
             steps{
                 script{
                     gv_script = load "script.groovy"
                 }
             }
-        }
-    stages {
+      }
      stage('Code checkout') {
             steps {
                 script{
                 gv_script.codeCheckout()
                 }
     }
-        }
+    }
     
 
     stage ('Build') {
