@@ -32,7 +32,7 @@ pipeline {
       }
     }
     
-    stage('checkPomVersion'){
+    stage('checkPomVerion'){
       steps{
         script{
           gv_script.checkPomVersion()
@@ -41,22 +41,22 @@ pipeline {
     }
     
 
-    stage('Jar Push to Nexus'){
-      steps{
-        script{
-          gv_script.pushJar()
-        }
-      }
-    }
+    // stage('Jar Push to Nexus'){
+    //   steps{
+    //     script{
+    //       gv_script.pushJar()
+    //     }
+    //   }
+    // }
 
-    stage('Docker Build and Push to Nexus') 
-    {
-      steps {
-        script{
-          gv_script.pushImage()
-        }
-       }
-      }  
+    // stage('Docker Build and Push to Nexus') 
+    // {
+    //   steps {
+    //     script{
+    //       gv_script.pushImage()
+    //     }
+    //    }
+    //   }  
   }
   
 }
