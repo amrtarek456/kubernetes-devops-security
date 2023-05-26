@@ -20,11 +20,10 @@ def checkPomVersion(){
                def new_version = readMavenPom file: './pom.xml'
                sh 'git show HEAD^:./pom.xml > check.xml'
                def old_version = readMavenPom file: 'check.xml'
-               
                if(new_version == old_version)
                {
                 println("Pom versions are identical you have to change the version!")
-                error("Stopping early!")
+                sleep 10000
                }
                
         }
