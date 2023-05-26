@@ -34,17 +34,18 @@ def checkPomVersion(){
 def pushJar(){
 script{
                 def mavenPom = readMavenPom file: './pom.xml'
-                nexusArtifactUploader artifacts: [[artifactId: 'numeric',
-                                                   classifier: '',
-                                                   file: "target/numeric-${mavenPom.version}.jar",
-                                                   type: 'jar']],
-                  credentialsId: "NEXUS_CRED",
-                  groupId: 'com.devsecops',
-                  nexusUrl: '40.121.81.242:8081/',
-                  nexusVersion: 'nexus3', 
-                  protocol: 'http',
-                  repository: 'myapp',
-                  version: "${mavenPom.version}"
+                nexusArtifactUploader artifacts: [[
+                artifactId: 'numeric',
+                classifier: '',
+                file: "target/numeric-${mavenPom.version}.jar",
+                type: 'jar']],
+                credentialsId: "NEXUS_CRED",
+                groupId: 'com.devsecops',
+                nexusUrl: '40.121.81.242:8081/',
+                nexusVersion: 'nexus3', 
+                protocol: 'http',
+                repository: 'myapp',
+                version: "${mavenPom.version}"
                 }
 }
 
